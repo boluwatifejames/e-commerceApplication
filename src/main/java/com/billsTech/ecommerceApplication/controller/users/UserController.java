@@ -2,6 +2,7 @@ package com.billsTech.ecommerceApplication.controller.users;
 
 import com.billsTech.ecommerceApplication.request.AuthenticateUserRequest;
 import com.billsTech.ecommerceApplication.request.CustomerRequest;
+import com.billsTech.ecommerceApplication.request.DeliveryDetailsRequest;
 import com.billsTech.ecommerceApplication.request.RegisterUserRequest;
 import com.billsTech.ecommerceApplication.response.*;
 import com.billsTech.ecommerceApplication.service.LoginAndSignUp_Service;
@@ -33,13 +34,18 @@ public class UserController {
         return ResponseEntity.ok(userService.addToCart(customerRequest));
     }
 
+    @PostMapping("/Admin/deliveryDetail")
+    public void setDeliveryDetails(@RequestBody DeliveryDetailsRequest deliveryDetails){
+        userService.setDeliveryDetails(deliveryDetails);
+    }
+
     @GetMapping("/Admin/viewCart")
     public ResponseEntity<?> viewCart(){
        return ResponseEntity.ok(userService.viewCart());
     }
 
     @GetMapping("/Admin/checkout")
-    public ResponseEntity<?> checkout(){
-        return ResponseEntity.ok(userService.checkout());
+    public ResponseEntity<?> checkout(@RequestParam Long userId){
+        return ResponseEntity.ok(userService.checkout(userId));
     }
 }
